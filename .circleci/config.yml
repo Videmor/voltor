@@ -18,6 +18,5 @@ jobs:
       - run: docker run voltor npm test
       
     deploy:
-      - run:
-        name: Push qa
-        command: sh deployments/qa.sh
+      name: Push qa
+      command: sh deployments/qa.sh
