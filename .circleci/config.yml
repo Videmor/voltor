@@ -20,6 +20,4 @@ jobs:
     deploy:
       - run:
         name: Push qa
-        branches:
-          only: /feature_.*/
         command: sh deployments/qa.sh
