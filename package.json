@@ -1,0 +1,16 @@
+{
+  "name": "voltron",
+  "version": "1.0.0",
+  "description": "Ejemplo",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "videmor",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mocha": "^5.1.0",
+    "supertest": "^3.0.0"
+  }
+}
