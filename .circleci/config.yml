@@ -5,6 +5,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/app
     docker:
       - image: docker:17.05.0-ce-git
 
@@ -17,9 +18,28 @@ jobs:
       # run tests!
       - run: docker run voltor npm test
       
-    deploy:
+      # - deploy:
+      #     name: Deploy qa
+      #     command: sh deployments/qa.sh
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
       - run:
-        name: Push qa
-        branches:
-          only: /feature_.*/
-        command: sh deployments/qa.sh
+          name: Deploy to now.sh
+          command: sh deployments/qa.sh
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+        requires:
+          - build
+        filters:
+          branches:
+            only: /feature_.*/
+
