@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    working_directory: /app
+    working_directory: ~/app
     docker:
       - image: docker:17.05.0-ce-git
 
@@ -22,12 +22,11 @@ jobs:
       #     name: Deploy qa
       #     command: sh deployments/qa.sh
   deploy:
-    working_directory: /app
+    working_directory: ~/app
     docker:
       - image: circleci/node:7.10
     steps:
       - checkout
-      - setup_remote_docker
       - run:
           name: Deploy to now.sh
           command: sh deployments/qa.sh
