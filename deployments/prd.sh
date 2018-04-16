@@ -19,4 +19,4 @@ git add infra && git commit -m "Deployed $CIRCLE_BUILD NUM [skip ci]" &&
 git push origin master
 
 echo "Deployed and saved!" &&
-echo "Now deleting the image previously created" &&
+echo "Now deleting the image previously created"
