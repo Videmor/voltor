@@ -34,6 +34,9 @@ jobs:
       - image: circleci/node:7.10
     steps:
       - checkout
+      - add_ssh_keys:
+        fingerprints: 
+          - "46:82:97:83:87:ef:52:a9:da:4c:5d:0c:46:2f:32:10"
       - run:
           name: Deploy to PRD
           command: sh deployments/prd.sh
