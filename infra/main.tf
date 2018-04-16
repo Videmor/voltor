@@ -1,6 +1,6 @@
 # create loadbalancer
 resource "digitalocean_loadbalancer" "voltor" {
-  name = "loadbalancer-voltor"
+  name   = "loadbalancer-voltor"
   region = "nyc3"
 
   forwarding_rule {
@@ -27,14 +27,22 @@ resource "digitalocean_tag" "voltor" {
 
 # create droplet
 resource "digitalocean_droplet" "voltor" {
-  count             = 2
-  image             = "33485854"
-  name              = "voltor-02"
-  region            = "nyc3"
-  size              = "512mb"
-  tags              = ["${digitalocean_tag.voltor.id}"]
-  ssh_keys          = [20009875]
-  user_data         = <<EOF
+  count                   = 2
+  image                   = "${var.image_id}"
+  name                    = "voltor-02"
+  region                  = "nyc3"
+  size                    = "512mb"
+  tags                    = ["${digitalocean_tag.voltor.id}"]
+  ssh_keys                = [20009875]
+  lifecycle {
+    create_before_destroy = true
+  }
+  
+  provisioner "local-exec" {
+    command = "sleep 160 && curl ${self.ipv4_address}:3000"
+  }
+
+  user_data               = <<EOF
 #cloud-config
 coreos:
   units:
@@ -42,8 +50,8 @@ coreos:
       command: "start"
       content: |
         [Unit]
-        Description = Voltor
-        After       = docker.service
+        Description       = Voltor
+        After             = docker.service
 
         [Service]
         ExecStart=/usr/bin/docker run -d -p 3000:3000 voltor
