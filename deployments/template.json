@@ -1,10 +1,14 @@
 {
+  "variables": {
+    "build_number": "{{env `CIRCLE_BUILD_NUM`}}"
+  },
   "builders": [
     {
       "type": "digitalocean",
       "image": "coreos-stable",
       "region": "nyc3",
       "size": "512mb",
+      "snapshot_name": "voltor-image-{{user `build_number`}}",
       "ssh_username": "core"
     } 
   ],

@@ -17,12 +17,8 @@ jobs:
 
       # run tests!
       - run: docker run voltor npm test
-      
-      # - deploy:
-      #     name: Deploy qa
-      #     command: sh deployments/qa.sh
 
-  deploy:
+  deploy-qa:
     working_directory: ~/app
     docker:
       - image: circleci/node:7.10
@@ -32,15 +28,31 @@ jobs:
           name: Deploy to now.sh
           command: sh deployments/qa.sh
 
+  deploy-prd:
+    working_directory: ~/app
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+      - run:
+          name: Deploy to PRD
+          command: sh deployments/prd.sh
+
 workflows:
   version: 2
   buildi-and-deploy:
     jobs:
       - build
-      - deploy:
+      - deploy-qa:
           requires:
             - build
           filters:
             branches:
               only: /feature_.*/
+      - deploy-prd:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
 
