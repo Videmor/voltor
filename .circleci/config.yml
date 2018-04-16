@@ -38,9 +38,9 @@ workflows:
     jobs:
       - build
       - deploy:
-        requires:
-          - build
-        filters:
-          branches:
-            only: /feature_.*/
+          requires:
+            - build
+          filters:
+            branches:
+              only: /feature_.*/
 
