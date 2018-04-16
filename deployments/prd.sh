@@ -11,7 +11,7 @@ export TF_VAR_image_id=$(curl -X GET -H "Content-Type: application/json" -H "Aut
 echo "Got the image id of the new digital ocean image" &&
 echo $TF_VAR_image_id &&
 
-cd infra && terraform aply && cd .. &&
+cd infra && terraform apply && cd .. &&
 
 git add infra && git commit -m "Deployed $CIRCLE_BUILD NUM [skip ci]" &&
 git push origin master
