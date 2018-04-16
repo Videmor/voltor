@@ -13,8 +13,8 @@ echo $TF_VAR_image_id &&
 
 cd infra && terraform init && terraform apply -auto-approve && cd .. &&
 
-git config --global user.email "circleci@awesomeMail.com" &&
-git config --global user.name "Circle CI Script" &&
+git config --global user.email "circleci@videmor.com" &&
+git config --global user.name "circleci" &&
 git add infra && git commit -m "Deployed $CIRCLE_BUILD NUM [skip ci]" &&
 git push origin master
 
