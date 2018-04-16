@@ -1,0 +1,22 @@
+{
+  "builders": [
+    {
+      "type": "digitalocean",
+      "image": "coreos-stable",
+      "region": "nyc3",
+      "size": "512mb",
+      "ssh_username": "core"
+    } 
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "git clone https://github.com/Videmor/voltor.git",
+        "cd voltor",
+        "docker build -t voltor .",
+        "docker run -d -p 3000:3000 voltor"
+      ]
+    }
+  ]
+}
